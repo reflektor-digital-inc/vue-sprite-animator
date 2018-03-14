@@ -10,6 +10,9 @@
 </template>
 
 <script>
+
+import stringNaturalCompare from 'string-natural-compare';
+
 export default {
   name: 'v-sprite',
   props: {
@@ -67,7 +70,7 @@ export default {
         h: frame.frame.h
       })
     })
-    this.frames.sort((a, b) => a.filename < b.filename)
+    this.frames.sort(stringNaturalCompare)
     this.width = this.frames[0].w
     this.height = this.frames[0].h
     this.length = (this.frames.length - 1)
