@@ -32,6 +32,10 @@ export default {
       type: Boolean,
       default: true
     },
+    autostop: {
+      type: Boolean,
+      default: false
+    },
     yoyo: {
       type: Boolean,
       default: false
@@ -88,8 +92,13 @@ export default {
     },
     render () {
       this.ctx && this.ctx.clearRect(0, 0, this.width, this.height)
-      if (this.yoyo && this.currentIndex % this.length === 0 && this.currentIndex) {
-        this.yoyodirection = Number(!this.yoyodirection)
+      if (this.currentIndex % this.length === 0 && this.currentIndex) {
+        if (this.yoyo){
+          this.yoyodirection = Number(!this.yoyodirection)
+        }
+        if (this.autostop){
+          this.stop();
+        }
       }
       const index = Math.abs((this.currentIndex % this.length) - (this.length * this.yoyodirection))
       const x = this.frames[index].x
