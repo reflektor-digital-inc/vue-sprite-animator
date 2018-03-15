@@ -92,13 +92,8 @@ export default {
     },
     render () {
       this.ctx && this.ctx.clearRect(0, 0, this.width, this.height)
-      if (this.currentIndex % this.length === 0 && this.currentIndex) {
-        if (this.yoyo){
-          this.yoyodirection = Number(!this.yoyodirection)
-        }
-        if (this.autostop){
-          this.stop();
-        }
+      if (this.yoyo && this.currentIndex % this.length === 0 && this.currentIndex) {
+        this.yoyodirection = Number(!this.yoyodirection)
       }
       const index = Math.abs((this.currentIndex % this.length) - (this.length * this.yoyodirection))
       const x = this.frames[index].x
@@ -112,6 +107,9 @@ export default {
         this.then = this.now - (delta % (1000 / this.fps))
         this.render()
         this.currentIndex++
+      }
+      if (this.autostop && this.currentIndex > this.length){
+        return
       }
       this.animationFrameID = window.requestAnimationFrame(this.loop)
     },
